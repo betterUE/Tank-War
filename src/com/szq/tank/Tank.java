@@ -10,16 +10,20 @@ import java.awt.Graphics;
 public class Tank {
 	private int x, y;
 	private Dir dir;
+	private static final int TankWidth=50,TankHeigh=50;
 	// 坦克的速度
 	private static final int SPEED = 5;
 	// 坦克是否移动
 	private boolean moving = false;
+	//Frame
+	private TankFrame tf = null;
 
-	public Tank(int x, int y, Dir dir) {
+	public Tank(int x, int y, Dir dir , TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 
 	public boolean getMoving() {
@@ -42,7 +46,7 @@ public class Tank {
 	public void paint(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.BLUE);
-		g.fillRect(x, y, 50, 50);
+		g.fillRect(x, y, TankWidth, TankHeigh);
 		g.setColor(c);
 		move();
 	}
@@ -70,6 +74,14 @@ public class Tank {
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 发射炮弹
+	 */
+	public void fire() {
+		//tf.myBullet = new Bullet(this.x+12, this.y+12, this.dir);  
+		tf.bullets.add(new Bullet(this.x+12, this.y+12, this.dir,tf));
 	}
 
 }

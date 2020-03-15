@@ -8,9 +8,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class TankFrame extends Frame {
 	static final int GAME_WIDTH=800,GAME_HEIGHT=900;
+	//创建坦克对象 属性
+	Tank myTank = new Tank(20, 20, Dir.DOWN, this);
+	//创建炮弹对象 属性
+	//Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
+	// 打出多个炮弹
+	List<Bullet> bullets = new ArrayList<Bullet>();
 	// 构造方法
 	public TankFrame() {
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -28,11 +37,6 @@ public class TankFrame extends Frame {
 		});
 	}
 
-	//创建坦克对象
-	Tank myTank = new Tank(20, 20, Dir.DOWN);
-	//创建炮弹对象
-	Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
-	
 	// 使用双缓冲解决闪烁问题（看不懂不用管）
 	Image offScreenImage = null;
 	@Override
@@ -50,10 +54,30 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g) {
+		//输出子弹数目
+		Color c = g.getColor();
+		g.setColor(Color.WHITE);
+		g.drawString("炮弹的数量："+bullets.size(), 30, 50);
+		g.setColor(c);
 		//画出坦克
 		myTank.paint(g);
 		//画出子弹
-		myBullet.paint(g);
+		//myBullet.paint(g);
+		//发射一堆子弹，这种方法会出现迭代器中删除异常，避免方法如下：
+		/*for(Bullet b : bullets){
+			b.paint(g);
+		}*/
+		for(int i=0;i<bullets.size();i++){
+			bullets.get(i).paint(g);
+		}
+		
+		/*第二种方法
+		 * for(Iterator<Bullet> it = bullets.iterator(); it.hasNext();){
+			Bullet b = it.next();
+			if(!b.getLive()){
+				it.remove();
+			}
+		}*/
 	}
 
 	//
@@ -105,6 +129,9 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_DOWN:
 				bD = false;
 				break;
+			//按下ctrl键时，发射炮弹
+			case KeyEvent.VK_CONTROL:
+				myTank.fire();
 			default:
 				break;
 			}
