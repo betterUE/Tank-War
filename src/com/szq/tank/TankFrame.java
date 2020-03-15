@@ -9,15 +9,6 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-	private int x = 20, y = 20;
-	Dir dir = Dir.DOWN;
-	private static final int SPEED = 10;
-
-	private boolean bL = false;
-	private boolean bR = false;
-	private boolean bU = false;
-	private boolean bD = false;
-
 	// 构造方法
 	public TankFrame() {
 		this.setSize(800, 900);
@@ -35,29 +26,22 @@ public class TankFrame extends Frame {
 		});
 	}
 
+	Tank myTank = new Tank(20,20,Dir.DOWN);
+	
 	@Override
 	public void paint(Graphics g) {
-		g.fillRect(x, y, 50, 50);
-		switch (dir) {
-		case LEFT:
-			x -= SPEED;
-			break;
-		case RIGHT:
-			x += SPEED;
-			break;
-		case UP:
-			y -= SPEED;
-			break;
-		case DOWN:
-			y += SPEED;
-			break;
-		default:
-			break;
+		
+		myTank.paint(g);
+		
 		}
-	}
 
 	// 
 	class MyKeyListener extends KeyAdapter {
+		
+		private boolean bL = false;
+		private boolean bR = false;
+		private boolean bU = false;
+		private boolean bD = false;
 
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -84,22 +68,7 @@ public class TankFrame extends Frame {
 			}
 			setMainTankMoveDir();
 		}
-
-		/**
-		 * 主坦克的移动方向
-		 */
-		private void setMainTankMoveDir() {
-			// TODO Auto-generated method stub
-			if (bL)
-				dir = Dir.LEFT;
-			if (bU)
-				dir = Dir.UP;
-			if (bR)
-				dir = Dir.RIGHT;
-			if (bD)
-				dir = Dir.DOWN;
-		}
-
+		
 		/**
 		 *  * 松开键 ,要将 四个方向定义为 false
 		 */
@@ -128,6 +97,27 @@ public class TankFrame extends Frame {
 			}
 			setMainTankMoveDir();
 		}
+		
+		/**
+		 * 主坦克的移动方向
+		 */
+		public void setMainTankMoveDir() {
+			// TODO Auto-generated method stub
+			
+			if (bL){
+				myTank.setDir(Dir.LEFT);
+			}
+			if (bU){
+				myTank.setDir(Dir.UP);
+			}
+			if (bR){
+				myTank.setDir(Dir.RIGHT);
+			}
+			if (bD){
+				myTank.setDir(Dir.DOWN);
+			}
+		}
 
 	}
+		
 }
