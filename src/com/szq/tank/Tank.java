@@ -1,9 +1,10 @@
 package com.szq.tank;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * @author SZQ 坦克类 将tank类抽象出来，添加相应的属性和方法
+ * @author shizq 坦克类 将tank类抽象出来，添加相应的属性和方法
  *
  */
 public class Tank {
@@ -39,7 +40,10 @@ public class Tank {
 
 	// 画出坦克
 	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.BLUE);
 		g.fillRect(x, y, 50, 50);
+		g.setColor(c);
 		move();
 	}
 

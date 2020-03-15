@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * @author: SZQ
+ * @author: shizq
  * @Date: 2020年3月15日下午3:55:06
  * @Des: 炮弹类
  * @Version: 1.0
@@ -23,10 +23,10 @@ public class Bullet {
 
 	// 画出炮弹
 	public void paint(Graphics g) {
+		Color c = g.getColor();
 		g.setColor(Color.red);
-		//g.fillRect(x, y, 50, 50);
 		g.fillOval(x, y, WIDTH, HEIGHT);
-		
+		g.setColor(c);
 		move();
 	}
 	

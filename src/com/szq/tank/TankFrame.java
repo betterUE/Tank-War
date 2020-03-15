@@ -1,16 +1,19 @@
 package com.szq.tank;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
+	static final int GAME_WIDTH=800,GAME_HEIGHT=900;
 	// 构造方法
 	public TankFrame() {
-		this.setSize(800, 900);
+		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setResizable(true);
 		this.setTitle("̹坦克大战");
 		this.setVisible(true);
@@ -29,6 +32,21 @@ public class TankFrame extends Frame {
 	Tank myTank = new Tank(20, 20, Dir.DOWN);
 	//创建炮弹对象
 	Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
+	
+	// 使用双缓冲解决闪烁问题（看不懂不用管）
+	Image offScreenImage = null;
+	@Override
+	public void update(Graphics g){
+		if(offScreenImage == null){
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+		}
+		Graphics goffScreen = offScreenImage.getGraphics();
+		Color c = goffScreen.getColor();
+		goffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		goffScreen.setColor(c);
+		paint(goffScreen);
+		g.drawImage(offScreenImage, 0, 0, null);
+	}
 
 	@Override
 	public void paint(Graphics g) {

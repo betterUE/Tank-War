@@ -1,7 +1,7 @@
 package com.szq.tank;
 
 /**
- * @author: SZQ
+ * @author: shizq
  * @Date: 2020年3月15日下午3:49:35
  * @Des:
  * @Version: 1.0
@@ -13,7 +13,6 @@ public class TankMain {
 			while(true){
 				Thread.sleep(50);
 				tank.repaint();
-				
 			}
 		}
 }
