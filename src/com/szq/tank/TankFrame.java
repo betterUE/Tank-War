@@ -8,7 +8,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-
 	// 构造方法
 	public TankFrame() {
 		this.setSize(800, 900);
@@ -26,18 +25,16 @@ public class TankFrame extends Frame {
 		});
 	}
 
-	Tank myTank = new Tank(20,20,Dir.DOWN);
-	
+	Tank myTank = new Tank(20, 20, Dir.DOWN);
+
 	@Override
 	public void paint(Graphics g) {
-		
 		myTank.paint(g);
-		
-		}
+	}
 
-	// 
+	//
 	class MyKeyListener extends KeyAdapter {
-		
+
 		private boolean bL = false;
 		private boolean bR = false;
 		private boolean bU = false;
@@ -48,19 +45,15 @@ public class TankFrame extends Frame {
 			int key = e.getKeyCode();
 			switch (key) {
 			case KeyEvent.VK_LEFT:
-				// x -= 10;
 				bL = true;
 				break;
 			case KeyEvent.VK_RIGHT:
-				// x += 10;
 				bR = true;
 				break;
 			case KeyEvent.VK_UP:
-				// y -= 10;
 				bU = true;
 				break;
 			case KeyEvent.VK_DOWN:
-				// y += 10;
 				bD = true;
 				break;
 			default:
@@ -68,28 +61,24 @@ public class TankFrame extends Frame {
 			}
 			setMainTankMoveDir();
 		}
-		
+
 		/**
-		 *  * 松开键 ,要将 四个方向定义为 false
+		 * * 松开键 ,要将 四个方向定义为 false
 		 */
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int key = e.getKeyCode();
 			switch (key) {
 			case KeyEvent.VK_LEFT:
-				// x -= 10;
 				bL = false;
 				break;
 			case KeyEvent.VK_RIGHT:
-				// x += 10;
 				bR = false;
 				break;
 			case KeyEvent.VK_UP:
-				// y -= 10;
 				bU = false;
 				break;
 			case KeyEvent.VK_DOWN:
-				// y += 10;
 				bD = false;
 				break;
 			default:
@@ -97,27 +86,31 @@ public class TankFrame extends Frame {
 			}
 			setMainTankMoveDir();
 		}
-		
+
 		/**
 		 * 主坦克的移动方向
 		 */
 		public void setMainTankMoveDir() {
-			// TODO Auto-generated method stub
-			
-			if (bL){
-				myTank.setDir(Dir.LEFT);
+			// 如果没有按键，则坦克静止
+			if (!bL && !bU && !bR && !bD) {
+				myTank.setMoving(false);
+			} else {
+				myTank.setMoving(true);
+				if (bL) {
+					myTank.setDir(Dir.LEFT);
+				}
+				if (bU) {
+					myTank.setDir(Dir.UP);
+				}
+				if (bR) {
+					myTank.setDir(Dir.RIGHT);
+				}
+				if (bD) {
+					myTank.setDir(Dir.DOWN);
+				}
 			}
-			if (bU){
-				myTank.setDir(Dir.UP);
-			}
-			if (bR){
-				myTank.setDir(Dir.RIGHT);
-			}
-			if (bD){
-				myTank.setDir(Dir.DOWN);
-			}
-		}
 
+		}
 	}
-		
+
 }
