@@ -25,11 +25,17 @@ public class TankFrame extends Frame {
 		});
 	}
 
+	//创建坦克对象
 	Tank myTank = new Tank(20, 20, Dir.DOWN);
+	//创建炮弹对象
+	Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
 
 	@Override
 	public void paint(Graphics g) {
+		//画出坦克
 		myTank.paint(g);
+		//画出子弹
+		myBullet.paint(g);
 	}
 
 	//

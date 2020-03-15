@@ -10,7 +10,7 @@ public class Tank {
 	private int x, y;
 	private Dir dir;
 	// 坦克的速度
-	private static final int SPEED = 10;
+	private static final int SPEED = 5;
 	// 坦克是否移动
 	private boolean moving = false;
 
@@ -37,11 +37,10 @@ public class Tank {
 		this.dir = dir;
 	}
 
+	// 画出坦克
 	public void paint(Graphics g) {
-
 		g.fillRect(x, y, 50, 50);
 		move();
-
 	}
 
 	/**
