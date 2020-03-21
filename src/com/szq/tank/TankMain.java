@@ -11,7 +11,7 @@ public class TankMain {
 			
 			TankFrame tank = new TankFrame();
 			while(true){
-				Thread.sleep(50);
+				Thread.sleep(20);
 				tank.repaint();
 			}
 		}

@@ -64,7 +64,7 @@ public class TankFrame extends Frame {
 		//画出子弹
 		//myBullet.paint(g);
 		//发射一堆子弹，这种方法会出现迭代器中删除异常，避免方法如下：
-		/*for(Bullet b : bullets){
+		/*for(Bullet b : bullets){   
 			b.paint(g);
 		}*/
 		for(int i=0;i<bullets.size();i++){

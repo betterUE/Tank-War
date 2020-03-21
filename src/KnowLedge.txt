@@ -1,0 +1,44 @@
+-- 知识补漏
+
+classPath的含义：我们以一个WEB项目为例，一般我们开发项目时的目录结构是：
+project|
+       |        |--java
+       |--src|--|
+       |     |  |--resources
+       |     |  |                   |--views
+       |     |  |--webapp--WEB-INF--|
+       |     |                      |--web.xml
+       |     |--test-java
+       |
+       |
+       |--pom.xml
+       
+ 我们平常用到的classpash的地方，就是在指定一些配置文件、资源文件的时候用到。
+ 比如我们在 web。xml 中指定springMvc的配置文件，指定mybatis的 mapper.xml的路径会使用到。
+ 很显然，则2个classpath的配置，就是为了告诉要去哪里找到指定的配置文件。
+ 
+ web项目发布后的目录结构：
+ project|
+        |        
+        |---WEB-INF--|--classes
+        |     	    | 
+        |     		|--lib  
+        |     		| 
+        |     		|--views
+        |     		|  
+        |     		|--web.xml
+        |
+        |--META-INF
+       
+  编译后的class文件和资源文件都放到了classes目录下， ，maven引入的依赖及其他jar包被放到了 lib 目录下
+
+所以：classes 这个文件夹就是我们要找的 classpath
+
+需要注意的是配置 classpath 的方式：
+1.如果配置成 classpath:entry/dev/spring-mvc.xml,classpath就是 WEB-INF/classes/这个目录的路径
+2.如果配置成classpath*:**/mapper/mapping/*Mapper.xml ,**表示在任意目录下，也就是在WEB-INF/classes/下的任意层目录，只要符合
+后面的文件路径，都能被找到
+
+
+
+     
