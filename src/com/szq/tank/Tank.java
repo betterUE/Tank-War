@@ -2,6 +2,7 @@ package com.szq.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  * @author shizq 坦克类 将tank类抽象出来，添加相应的属性和方法
@@ -138,5 +139,14 @@ public class Tank {
 	public void die() {
 		this.living = false;
 	}
+	// 主战坦克与敌方坦克碰撞
+	/*public void tankCollideWith(Tank myTank) {
+		Rectangle tankRect = new Rectangle(this.x,this.y,this.getTankWidth(),this.getTankHeight());
+		Rectangle myTankRect = new Rectangle(myTank.getX(),myTank.getY(),myTank.getTankWidth(),myTank.getTankHeight());
+		if(tankRect.intersects(myTankRect)){
+			this.die();
+			myTank.die();
+		}
+	}*/
 
 }

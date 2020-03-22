@@ -93,6 +93,10 @@ public class TankFrame extends Frame {
 				bullets.get(i).collideWith(tanks.get(j));
 			}
 		}
+		/*// 主战坦克与敌方坦克碰撞
+		for(int j=0; j<tanks.size(); j++){
+			tanks.get(j).tankCollideWith(myTank);
+		}*/
 	}
 
 	//
