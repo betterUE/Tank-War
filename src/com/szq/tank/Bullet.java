@@ -11,7 +11,8 @@ import java.awt.Graphics;
  */
 public class Bullet {
 	private static int SPEED = 7;
-	private static int WIDTH = 25,HEIGHT = 25;
+	private static int BulletWidth = ResourceMgr.bulletU.getWidth();
+	private static int BulletHeight = ResourceMgr.bulletU.getHeight();
 	private int x, y;
 	private Dir dir;
 	private boolean live = true;

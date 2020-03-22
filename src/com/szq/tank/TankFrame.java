@@ -15,11 +15,13 @@ import java.util.List;
 public class TankFrame extends Frame {
 	static final int GAME_WIDTH=800,GAME_HEIGHT=900;
 	//创建坦克对象 属性
-	Tank myTank = new Tank(20, 20, Dir.DOWN, this);
+	Tank myTank = new Tank(30, 30, Dir.DOWN, this);
 	//创建炮弹对象 属性
 	//Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
 	// 打出多个炮弹
 	List<Bullet> bullets = new ArrayList<Bullet>();
+	//创建敌方多个坦克
+	List<Tank> tanks = new ArrayList<>();
 	// 构造方法
 	public TankFrame() {
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -78,6 +80,11 @@ public class TankFrame extends Frame {
 				it.remove();
 			}
 		}*/
+		
+		//画坦克
+		for(int j=0; j<tanks.size(); j++){
+			tanks.get(j).paint(g);
+		}
 	}
 
 	//

@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * @author: SZQ
+ * @author: shizq
  * @Date: 2020年3月22日上午12:12:14
  * @Des: 加载图片资源
  * @Version: 1.0

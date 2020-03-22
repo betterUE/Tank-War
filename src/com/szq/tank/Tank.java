@@ -10,7 +10,8 @@ import java.awt.Graphics;
 public class Tank {
 	private int x, y;
 	private Dir dir;
-	private static final int TankWidth=50,TankHeigh=50;
+	private static int TankWidth = ResourceMgr.tankU.getWidth();
+	private static int TankHeight = ResourceMgr.tankU.getHeight();
 	// 坦克的速度
 	private static final int SPEED = 5;
 	// 坦克是否移动
@@ -90,7 +91,6 @@ public class Tank {
 	 * 发射炮弹
 	 */
 	public void fire() {
-		//tf.myBullet = new Bullet(this.x+12, this.y+12, this.dir);  
 		tf.bullets.add(new Bullet(this.x, this.y, this.dir,tf));
 	}
 
