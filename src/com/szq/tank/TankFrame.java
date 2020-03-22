@@ -15,7 +15,7 @@ import java.util.List;
 public class TankFrame extends Frame {
 	static final int GAME_WIDTH=800,GAME_HEIGHT=900;
 	//创建坦克对象 属性
-	Tank myTank = new Tank(30, 30, Dir.DOWN, this);
+	Tank myTank = new Tank(30, 30, Dir.DOWN, Group.GOOD,this);
 	//创建炮弹对象 属性
 	//Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
 	// 打出多个炮弹

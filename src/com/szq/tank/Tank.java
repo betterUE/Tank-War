@@ -3,6 +3,7 @@ package com.szq.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 /**
  * @author shizq 坦克类 将tank类抽象出来，添加相应的属性和方法
@@ -15,19 +16,24 @@ public class Tank {
 	private static int TankWidth = ResourceMgr.tankU.getWidth();
 	private static int TankHeight = ResourceMgr.tankU.getHeight();
 	// 坦克的速度
-	private static final int SPEED = 5;
+	private static final int SPEED = 1;
 	// 坦克是否移动
-	private boolean moving = false;
+	private boolean moving = true;
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
 	private TankFrame tf = null;
+	//区分主战坦克 与 敌方坦克, 默认是 敌方坦克
+	private Group group = Group.BAD;
+	//随机数
+	private Random random = new Random();
 
-	public Tank(int x, int y, Dir dir , TankFrame tf) {
+	public Tank(int x, int y, Dir dir , Group group,TankFrame tf) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 	
@@ -79,6 +85,14 @@ public class Tank {
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
+	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
 	// 画出坦克
 	public void paint(Graphics g) {
@@ -125,13 +139,17 @@ public class Tank {
 		default:
 			break;
 		}
+		
+		if(random.nextInt(10)>8){
+			this.fire();
+		}
 	}
 
 	/**
 	 * 发射炮弹
 	 */
 	public void fire() {
-		tf.bullets.add(new Bullet(this.x, this.y, this.dir,tf));
+		tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.group ,tf));
 	}
 	/**
 	 * 坦克与炮弹碰撞后 ，坦克 die

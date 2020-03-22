@@ -17,12 +17,13 @@ public class Bullet {
 	private int x, y;
 	private Dir dir;
 	private boolean living = true;
-
+	private Group group = Group.BAD;
 	TankFrame tf = null;
-	public Bullet(int x, int y, Dir dir, TankFrame tf) {
+	public Bullet(int x, int y, Dir dir,Group group, TankFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 	public boolean getLive() {
@@ -31,6 +32,13 @@ public class Bullet {
 	
 	public void setLive(boolean live) {
 		this.living = live;
+	}
+	
+	public Group getGroup() {
+		return group;
+	}
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	// 画出炮弹
@@ -80,6 +88,12 @@ public class Bullet {
 	}
 	//炮弹碰撞坦克
 	public void collideWith(Tank tank) {
+		//判断炮弹是不是主战自己的 ，还是 敌方的 
+		if(this.group == tank.getGroup()){
+			return;
+		}
+		
+		//TODO: 每次检测都要产生Rectangle对象， 导致垃圾频繁产生，可以用一个rect 记录炮弹的位置
 		Rectangle bulletRect = new Rectangle(this.x,this.y,this.BulletWidth,this.BulletHeight);
 		Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),tank.getTankWidth(),tank.getTankHeight());
 		if(bulletRect.intersects(tankRect)){
