@@ -8,6 +8,7 @@ import java.awt.Graphics;
  *
  */
 public class Tank {
+
 	private int x, y;
 	private Dir dir;
 	private static int TankWidth = ResourceMgr.tankU.getWidth();
@@ -16,6 +17,8 @@ public class Tank {
 	private static final int SPEED = 5;
 	// 坦克是否移动
 	private boolean moving = false;
+	//坦克是否 live
+	private boolean living = true;
 	//Frame
 	private TankFrame tf = null;
 
@@ -26,6 +29,39 @@ public class Tank {
 		this.dir = dir;
 		this.tf = tf;
 	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public static int getTankWidth() {
+		return TankWidth;
+	}
+	
+	public static void setTankWidth(int tankWidth) {
+		TankWidth = tankWidth;
+	}
+	
+	public static int getTankHeight() {
+		return TankHeight;
+	}
+	
+	public static void setTankHeight(int tankHeight) {
+		TankHeight = tankHeight;
+	}
+
 
 	public boolean getMoving() {
 		return moving;
@@ -45,6 +81,9 @@ public class Tank {
 
 	// 画出坦克
 	public void paint(Graphics g) {
+		if(!living){
+			tf.tanks.remove(this);
+		}
 		switch (dir) {
 		case LEFT:
 			g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -92,6 +131,12 @@ public class Tank {
 	 */
 	public void fire() {
 		tf.bullets.add(new Bullet(this.x, this.y, this.dir,tf));
+	}
+	/**
+	 * 坦克与炮弹碰撞后 ，坦克 die
+	 */
+	public void die() {
+		this.living = false;
 	}
 
 }

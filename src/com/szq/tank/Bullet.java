@@ -2,6 +2,7 @@ package com.szq.tank;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  * @author: shizq
@@ -15,7 +16,7 @@ public class Bullet {
 	private static int BulletHeight = ResourceMgr.bulletU.getHeight();
 	private int x, y;
 	private Dir dir;
-	private boolean live = true;
+	private boolean living = true;
 
 	TankFrame tf = null;
 	public Bullet(int x, int y, Dir dir, TankFrame tf) {
@@ -25,16 +26,16 @@ public class Bullet {
 		this.tf = tf;
 	}
 	public boolean getLive() {
-		return live;
+		return living;
 	}
 	
 	public void setLive(boolean live) {
-		this.live = live;
+		this.living = live;
 	}
 
 	// 画出炮弹
 	public void paint(Graphics g) {
-		if(!live){
+		if(!living){
 			tf.bullets.remove(this);
 		}
 		
@@ -74,7 +75,20 @@ public class Bullet {
 		}
 		//添加判断炮弹是否飞出边界，
 		if(x<0 || y<0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT){
-			live = false;
+			living = false;
 		}
+	}
+	//炮弹碰撞坦克
+	public void collideWith(Tank tank) {
+		Rectangle bulletRect = new Rectangle(this.x,this.y,this.BulletWidth,this.BulletHeight);
+		Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),tank.getTankWidth(),tank.getTankHeight());
+		if(bulletRect.intersects(tankRect)){
+			tank.die();
+			this.die();
+		}
+	}
+	//炮弹碰撞坦克后 die
+	private void die() {
+		this.living = false;
 	}
 }
