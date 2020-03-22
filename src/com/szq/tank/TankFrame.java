@@ -22,6 +22,9 @@ public class TankFrame extends Frame {
 	List<Bullet> bullets = new ArrayList<Bullet>();
 	//创建敌方多个坦克
 	List<Tank> tanks = new ArrayList<>();
+	//爆炸
+	Explode explode = new Explode(300, 300, this);
+	
 	// 构造方法
 	public TankFrame() {
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -97,6 +100,9 @@ public class TankFrame extends Frame {
 		for(int j=0; j<tanks.size(); j++){
 			tanks.get(j).tankCollideWith(myTank);
 		}*/
+		
+		//画出一个爆炸
+		explode.paint(g);
 	}
 
 	//
