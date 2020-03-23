@@ -24,6 +24,8 @@ public class TankFrame extends Frame {
 	List<Tank> tanks = new ArrayList<>();
 	//爆炸
 	Explode explode = new Explode(300, 300, this);
+	//可能多个位置爆炸
+	List<Explode> explodes = new ArrayList<>();
 	
 	// 构造方法
 	public TankFrame() {
@@ -102,7 +104,10 @@ public class TankFrame extends Frame {
 		}*/
 		
 		//画出一个爆炸
-		explode.paint(g);
+		//explode.paint(g);
+		for(int m=0; m<explodes.size(); m++){
+			explodes.get(m).paint(g);
+		}
 	}
 
 	//

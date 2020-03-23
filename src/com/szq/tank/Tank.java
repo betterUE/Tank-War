@@ -18,7 +18,7 @@ public class Tank {
 	// 坦克的速度
 	private static final int SPEED = 1;
 	// 坦克是否移动
-	private boolean moving = true;
+	private boolean moving = false;
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
@@ -156,6 +156,8 @@ public class Tank {
 	 */
 	public void die() {
 		this.living = false;
+		// 坦克die 之后，随即爆炸
+		tf.explodes.add(new Explode(this.x, this.y, tf));
 	}
 	// 主战坦克与敌方坦克碰撞
 	/*public void tankCollideWith(Tank myTank) {

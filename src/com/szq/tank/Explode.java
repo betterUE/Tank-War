@@ -1,8 +1,13 @@
 package com.szq.tank;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
+/**
+ * @author: shizq
+ * @Date: 2020年3月23日下午11:02:42
+ * @Des:
+ * @Version: 1.0
+ */
 public class Explode {
 	private static int Width = ResourceMgr.explodes[0].getWidth();
 	private static int Height = ResourceMgr.explodes[0].getHeight();
@@ -14,6 +19,8 @@ public class Explode {
 		this.x = x;
 		this.y = y;
 		this.tf = tf;
+		//爆炸声音
+		//new Audio("audio/explode.wav"
 	}
 	public boolean getLive() {
 		return living;
@@ -27,7 +34,7 @@ public class Explode {
 	public void paint(Graphics g) {
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		if(step >= ResourceMgr.explodes.length){
-			step=0;
+			tf.explodes.remove(this);
 		}
 	}
 }
