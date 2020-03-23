@@ -18,7 +18,7 @@ public class Tank {
 	// 坦克的速度
 	private static final int SPEED = 1;
 	// 坦克是否移动
-	private boolean moving = false;
+	private boolean moving = true;
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
@@ -139,10 +139,17 @@ public class Tank {
 		default:
 			break;
 		}
-		
-		if(random.nextInt(10)>8){
+		//敌人坦克随机发射炮弹
+		if(this.group==Group.BAD && random.nextInt(100)>95){
 			this.fire();
 		}
+		if(this.group==Group.BAD && random.nextInt(100)>98){
+			randomDir();
+		}
+	}
+	//随机换方向
+	private void randomDir() {
+		this.dir=Dir.values()[random.nextInt(4)];
 	}
 
 	/**
