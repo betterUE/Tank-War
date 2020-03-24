@@ -27,6 +27,8 @@ public class Tank {
 	private Group group = Group.BAD;
 	//随机数
 	private Random random = new Random();
+	//计数器，用于实现坦克灯闪烁的效果
+	int count = 0;
 
 	public Tank(int x, int y, Dir dir , Group group,TankFrame tf) {
 		super();
@@ -99,22 +101,46 @@ public class Tank {
 		if(!living){
 			tf.tanks.remove(this);
 		}
-		switch (dir) {
-		//使用
-		case LEFT:
-			g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
-			break;
-		case RIGHT:
-			g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
-			break;
-		case UP:
-			g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
-			break;
-		case DOWN:
-			g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
-			break;
-		}			
+		if(count>=0 && count<50){
+			switch (dir) {
+			//使用
+			case LEFT:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+				break;
+			case UP:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+				break;
+			}
+		}else{
+			switch (dir) {
+			//使用
+			case LEFT:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.glGoodTankL : ResourceMgr.glBadTankL, x, y, null);
+				break;
+			case RIGHT:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.glGoodTankR : ResourceMgr.glBadTankR, x, y, null);
+				break;
+			case UP:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.glGoodTankU : ResourceMgr.glBadTankU, x, y, null);
+				break;
+			case DOWN:
+				g.drawImage(this.group==Group.GOOD ? ResourceMgr.glGoodTankD : ResourceMgr.glBadTankD, x, y, null);
+				break;
+			}
+		}
+		
+					
 		move();
+		count++;
+		if(count>=100){
+			count=0;
+		}
 	}
 
 	/**

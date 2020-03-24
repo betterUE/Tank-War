@@ -13,7 +13,9 @@ import javax.imageio.ImageIO;
  */
 public class ResourceMgr {
 	public static BufferedImage goodTankL,goodTankR,goodTankU,goodTankD;
+	public static BufferedImage glGoodTankL,glGoodTankU,glGoodTankR,glGoodTankD;
 	public static BufferedImage badTankL,badTankR,badTankU,badTankD;
+	public static BufferedImage glBadTankL,glBadTankR,glBadTankU,glBadTankD;
 	public static BufferedImage bulletL,bulletR,bulletU,bulletD;
 	public static BufferedImage[] explodes = new BufferedImage[16];
 	
@@ -24,10 +26,20 @@ public class ResourceMgr {
 			goodTankR = ImageUtil.rotateImage(goodTankU, 90);
 			goodTankD = ImageUtil.rotateImage(goodTankU, 180);
 			
+			glGoodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank2.png"));
+			glGoodTankL = ImageUtil.rotateImage(glGoodTankU, -90);
+			glGoodTankR = ImageUtil.rotateImage(glGoodTankU, 90);
+			glGoodTankD = ImageUtil.rotateImage(glGoodTankU, 180);
+			
 			badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
 			badTankL = ImageUtil.rotateImage(badTankU, -90);
 			badTankR = ImageUtil.rotateImage(badTankU, 90);
 			badTankD = ImageUtil.rotateImage(badTankU, 180);
+			
+			glBadTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank2.png"));
+			glBadTankL = ImageUtil.rotateImage(glBadTankU, -90);
+			glBadTankR = ImageUtil.rotateImage(glBadTankU, 90);
+			glBadTankD = ImageUtil.rotateImage(glBadTankU, 180);
 		
 			bulletL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletL.gif"));
 			bulletR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
