@@ -29,6 +29,8 @@ public class Tank {
 	private Random random = new Random();
 	//计数器，用于实现坦克灯闪烁的效果
 	int count = 0;
+	//碰撞检测优化
+	Rectangle rect = new Rectangle();
 
 	public Tank(int x, int y, Dir dir , Group group,TankFrame tf) {
 		super();
@@ -37,6 +39,10 @@ public class Tank {
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = this.TankWidth;
+		rect.height = this.TankHeight;
 	}
 	
 	public int getX() {
@@ -175,6 +181,10 @@ public class Tank {
 		}
 		
 		boundCheck();
+		
+		//更新rect 的位置
+		this.rect.x = this.getX();
+		this.rect.y = this.getY();
 	}
 	private void boundCheck() {
 		if(this.getX()<2){

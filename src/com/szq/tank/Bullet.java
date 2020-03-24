@@ -1,6 +1,5 @@
 package com.szq.tank;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -18,6 +17,9 @@ public class Bullet {
 	private Dir dir;
 	private boolean living = true;
 	private Group group = Group.BAD;
+	//碰撞检测优化
+	Rectangle rect = new Rectangle();
+	
 	TankFrame tf = null;
 	public Bullet(int x, int y, Dir dir,Group group, TankFrame tf) {
 		this.x = x;
@@ -25,6 +27,10 @@ public class Bullet {
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = this.BulletWidth;
+		rect.height = this.BulletHeight;
 	}
 	public boolean getLive() {
 		return living;
@@ -85,6 +91,9 @@ public class Bullet {
 		if(x<0 || y<0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT){
 			living = false;
 		}
+		//更新rect 的位置
+		this.rect.x = this.x;
+		this.rect.y = this.y;
 	}
 	//炮弹碰撞坦克
 	public void collideWith(Tank tank) {
@@ -92,11 +101,7 @@ public class Bullet {
 		if(this.group == tank.getGroup()){
 			return;
 		}
-		
-		//TODO: 每次检测都要产生Rectangle对象， 导致垃圾频繁产生，可以用一个rect 记录炮弹的位置
-		Rectangle bulletRect = new Rectangle(this.x,this.y,this.BulletWidth,this.BulletHeight);
-		Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),tank.getTankWidth(),tank.getTankHeight());
-		if(bulletRect.intersects(tankRect)){
+		if(this.rect.intersects(tank.rect)){
 			tank.die();
 			this.die();
 		}
