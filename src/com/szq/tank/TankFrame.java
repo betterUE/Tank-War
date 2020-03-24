@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
-	static final int GAME_WIDTH=800,GAME_HEIGHT=900;
+	static final int GAME_WIDTH=800,GAME_HEIGHT=700;
 	//创建坦克对象 属性
 	Tank myTank = new Tank(30, 30, Dir.DOWN, Group.GOOD,this);
 	//创建炮弹对象 属性

@@ -147,7 +147,24 @@ public class Tank {
 		if(this.group==Group.BAD && random.nextInt(100)>98){
 			randomDir();
 		}
+		
+		boundCheck();
 	}
+	private void boundCheck() {
+		if(this.getX()<2){
+			x = 2;
+		}
+		if(this.getY()<25){
+			y = 25;
+		}
+		if(x>TankFrame.GAME_WIDTH-60){
+			x = TankFrame.GAME_WIDTH-60;
+		}
+		if(this.getY()>TankFrame.GAME_HEIGHT-60){
+			y = TankFrame.GAME_HEIGHT-60;
+		}
+	}
+
 	//随机换方向
 	private void randomDir() {
 		this.dir=Dir.values()[random.nextInt(4)];
