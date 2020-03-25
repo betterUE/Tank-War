@@ -11,7 +11,7 @@ public class TankMain {
 			
 			TankFrame tankFrame = new TankFrame();
 			
-			int initTankCount = Integer.parseInt((String)ProperTyMgr.get("initTankCount"));
+			int initTankCount = ProperTyMgr.getInt("initTankCount");
 			
 			//初始化敌方坦克，这里以后是要单独拿出来的
 			for(int i=0; i<initTankCount; i++){
