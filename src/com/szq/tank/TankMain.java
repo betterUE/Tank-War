@@ -7,12 +7,14 @@ package com.szq.tank;
  * @Version: 1.0
  */
 public class TankMain {
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException  {
 			
 			TankFrame tankFrame = new TankFrame();
 			
+			int initTankCount = Integer.parseInt((String)ProperTyMgr.get("initTankCount"));
+			
 			//初始化敌方坦克，这里以后是要单独拿出来的
-			for(int i=0; i<5; i++){
+			for(int i=0; i<initTankCount; i++){
 				tankFrame.tanks.add(new Tank(80+i*70 , 300 , Dir.DOWN,Group.BAD,tankFrame));
 			}
 			while(true){
