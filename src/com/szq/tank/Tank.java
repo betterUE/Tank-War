@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class Tank {
 
-	private int x, y;
-	private Dir dir;
+	int x, y;
+	Dir dir;
 	private static int TankWidth = ResourceMgr.goodTankL.getWidth();
 	private static int TankHeight = ResourceMgr.goodTankL.getHeight();
 	// 坦克的速度
@@ -22,9 +22,9 @@ public class Tank {
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
-	private TankFrame tf = null;
+	TankFrame tf = null;
 	//区分主战坦克 与 敌方坦克, 默认是 敌方坦克
-	private Group group = Group.BAD;
+	Group group = Group.BAD;
 	//随机数
 	private Random random = new Random();
 	//计数器，用于实现坦克灯闪烁的效果
@@ -174,7 +174,7 @@ public class Tank {
 		}
 		//敌人坦克随机发射炮弹
 		if(this.group==Group.BAD && random.nextInt(100)>95){
-			this.fire();
+			this.fire(this.group);
 		}
 		if(this.group==Group.BAD && random.nextInt(100)>98){
 			randomDir();
@@ -186,6 +186,7 @@ public class Tank {
 		this.rect.x = this.getX();
 		this.rect.y = this.getY();
 	}
+
 	private void boundCheck() {
 		if(this.getX()<2){
 			x = 2;
@@ -209,9 +210,21 @@ public class Tank {
 	/**
 	 * 发射炮弹
 	 */
-	public void fire() {
+	/*public void fire() {
 		tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.group ,tf));
+	}*/
+	
+	/** 使用单利模式 和 策略 模式  控制 敌方坦克 和 主战坦克的 发射炮弹的方式
+	 * @param group
+	 */
+	public void fire(Group group) {
+		FireStrategy fireStrategy = DefaultFireStrategy.getInstance(); ;
+		if(group==Group.BAD){
+			fireStrategy = FourDirFireStrategy.getInstance();
+		}
+		fireStrategy.fire(this);
 	}
+	
 	/**
 	 * 坦克与炮弹碰撞后 ，坦克 die
 	 */

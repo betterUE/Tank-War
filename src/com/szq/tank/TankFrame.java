@@ -161,7 +161,7 @@ public class TankFrame extends Frame {
 				break;
 			//按下ctrl键时，发射炮弹
 			case KeyEvent.VK_CONTROL:
-				myTank.fire();
+				myTank.fire(myTank.group);
 			default:
 				break;
 			}

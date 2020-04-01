@@ -31,6 +31,8 @@ public class Bullet {
 		rect.y = this.y;
 		rect.width = this.BulletWidth;
 		rect.height = this.BulletHeight;
+		//重构代码，当炮弹被new出来的时候，就被加入到 画布中 bullets 的集合中去
+		tf.bullets.add(this);
 	}
 	public boolean getLive() {
 		return living;
