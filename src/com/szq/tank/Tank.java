@@ -218,9 +218,9 @@ public class Tank {
 	 * @param group
 	 */
 	public void fire(Group group) {
-		FireStrategy fireStrategy = DefaultFireStrategy.getInstance(); ;
+		FireStrategy fireStrategy = FourDirFireStrategy.getInstance(); ;
 		if(group==Group.BAD){
-			fireStrategy = FourDirFireStrategy.getInstance();
+			fireStrategy = DefaultFireStrategy.getInstance();
 		}
 		fireStrategy.fire(this);
 	}
