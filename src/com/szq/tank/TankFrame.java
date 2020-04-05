@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.szq.tank.factory.BaseBullet;
+import com.szq.tank.factory.BaseExplode;
+import com.szq.tank.factory.BaseTank;
+
 public class TankFrame extends Frame {
 	static final int GAME_WIDTH=800,GAME_HEIGHT=700;
 	//创建坦克对象 属性
@@ -19,14 +23,46 @@ public class TankFrame extends Frame {
 	//创建炮弹对象 属性
 	//Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
 	// 打出多个炮弹
-	List<Bullet> bullets = new ArrayList<Bullet>();
+	List<BaseBullet> bullets = new ArrayList<>();
 	//创建敌方多个坦克
-	List<Tank> tanks = new ArrayList<>();
+	List<BaseTank> tanks = new ArrayList<>();
 	//爆炸
 	Explode explode = new Explode(300, 300, this);
 	//可能多个位置爆炸
-	List<Explode> explodes = new ArrayList<>();
+	List<BaseExplode> explodes = new ArrayList<>();
 	
+	public List<BaseBullet> getBullets() {
+		return bullets;
+	}
+
+	public void setBullets(List<BaseBullet> bullets) {
+		this.bullets = bullets;
+	}
+
+	public List<BaseTank> getTanks() {
+		return tanks;
+	}
+
+	public void setTanks(List<BaseTank> tanks) {
+		this.tanks = tanks;
+	}
+
+	public static int getGameWidth() {
+		return GAME_WIDTH;
+	}
+
+	public static int getGameHeight() {
+		return GAME_HEIGHT;
+	}
+
+	public List<BaseExplode> getExplodes() {
+		return explodes;
+	}
+
+	public void setExplodes(List<BaseExplode> explodes) {
+		this.explodes = explodes;
+	}
+
 	// 构造方法
 	public TankFrame() {
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);

@@ -1,4 +1,8 @@
-package com.szq.tank;
+package com.szq.tank.Strategy;
+
+import com.szq.tank.Bullet;
+import com.szq.tank.Dir;
+import com.szq.tank.Tank;
 
 /**
  * @author: shizq
@@ -26,9 +30,9 @@ public class FourDirFireStrategy implements FireStrategy {
 	public void fire(Tank t) {
 		Dir[] dirs = Dir.values();
 		for(int i=0; i<dirs.length; i++){
-			new Bullet(t.x, t.y, dirs[i], t.group ,t.tf);	 
+			new Bullet(t.getX(), t.getY(), dirs[i], t.group ,t.tf);	 
 		}
-		new Bullet(t.x, t.y, t.dir, t.group ,t.tf);	 
+		new Bullet(t.getX(), t.getY(), t.dir, t.group ,t.tf);	 
 	}
 
 }
