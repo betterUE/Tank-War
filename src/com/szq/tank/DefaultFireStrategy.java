@@ -1,8 +1,4 @@
-package com.szq.tank.Strategy;
-
-import com.szq.tank.Bullet;
-import com.szq.tank.Tank;
-import com.szq.tank.factory.DefaultFactory;
+package com.szq.tank;
 
 /**
  * @author: shizq
@@ -27,8 +23,7 @@ public class DefaultFireStrategy implements FireStrategy {
 
 	@Override
 	public void fire(Tank t) {
-		//new Bullet(t.getX(), t.getY(), t.dir, t.group ,t.tf);	 
-		DefaultFactory.getInstance().createBullet(t.getX(), t.getY(), t.dir, t.group, t.tf);
+		new Bullet(t.x, t.y, t.dir, t.group ,t.tf);	 
 	}
 
 }

@@ -2,15 +2,13 @@ package com.szq.tank;
 
 import java.awt.Graphics;
 
-import com.szq.tank.factory.BaseExplode;
-
 /**
  * @author: shizq
  * @Date: 2020年3月23日下午11:02:42
  * @Des:
  * @Version: 1.0
  */
-public class Explode extends BaseExplode{
+public class Explode {
 	private static int Width = ResourceMgr.explodes[0].getWidth();
 	private static int Height = ResourceMgr.explodes[0].getHeight();
 	private int x, y;
@@ -33,7 +31,6 @@ public class Explode extends BaseExplode{
 	}
 	
 	// 画出炮弹
-	@Override
 	public void paint(Graphics g) {
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		if(step >= ResourceMgr.explodes.length){

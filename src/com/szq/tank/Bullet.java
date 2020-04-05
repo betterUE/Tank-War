@@ -3,16 +3,13 @@ package com.szq.tank;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.szq.tank.factory.BaseBullet;
-import com.szq.tank.factory.BaseTank;
-
 /**
  * @author: shizq
  * @Date: 2020年3月15日下午3:55:06
  * @Des: 炮弹类
  * @Version: 1.0
  */
-public class Bullet extends BaseBullet{
+public class Bullet {
 	private static int SPEED = 7;
 	private static int BulletWidth = ResourceMgr.bulletU.getWidth();
 	private static int BulletHeight = ResourceMgr.bulletU.getHeight();
@@ -53,7 +50,6 @@ public class Bullet extends BaseBullet{
 	}
 
 	// 画出炮弹
-	@Override
 	public void paint(Graphics g) {
 		if(!living){
 			tf.bullets.remove(this);
@@ -102,13 +98,12 @@ public class Bullet extends BaseBullet{
 		this.rect.y = this.y;
 	}
 	//炮弹碰撞坦克
-	@Override
-	public void collideWith(BaseTank tank) {
+	public void collideWith(Tank tank) {
 		//判断炮弹是不是主战自己的 ，还是 敌方的 
 		if(this.group == tank.getGroup()){
 			return;
 		}
-		if(this.rect.intersects(tank.getRect())){
+		if(this.rect.intersects(tank.rect)){
 			tank.die();
 			this.die();
 		}

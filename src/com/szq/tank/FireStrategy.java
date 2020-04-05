@@ -1,6 +1,4 @@
-package com.szq.tank.Strategy;
-
-import com.szq.tank.Tank;
+package com.szq.tank;
 
 /**
  * @author: shizq

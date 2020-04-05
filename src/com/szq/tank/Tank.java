@@ -5,20 +5,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import com.szq.tank.Strategy.DefaultFireStrategy;
-import com.szq.tank.Strategy.FireStrategy;
-import com.szq.tank.Strategy.FourDirFireStrategy;
-import com.szq.tank.factory.BaseTank;
-import com.szq.tank.factory.DefaultFactory;
-
 /**
  * @author shizq 坦克类 将tank类抽象出来，添加相应的属性和方法
  *
  */
-public class Tank extends BaseTank{
+public class Tank {
 
 	int x, y;
-	public Dir dir;
+	Dir dir;
 	private static int TankWidth = ResourceMgr.goodTankL.getWidth();
 	private static int TankHeight = ResourceMgr.goodTankL.getHeight();
 	// 坦克的速度
@@ -28,15 +22,15 @@ public class Tank extends BaseTank{
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
-	public TankFrame tf = null;
+	TankFrame tf = null;
 	//区分主战坦克 与 敌方坦克, 默认是 敌方坦克
-	public Group group = Group.BAD;
+	Group group = Group.BAD;
 	//随机数
 	private Random random = new Random();
 	//计数器，用于实现坦克灯闪烁的效果
 	int count = 0;
 	//碰撞检测优化
-	private Rectangle rect = new Rectangle();
+	Rectangle rect = new Rectangle();
 
 	public Tank(int x, int y, Dir dir , Group group,TankFrame tf) {
 		super();
@@ -45,10 +39,10 @@ public class Tank extends BaseTank{
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
-		getRect().x = this.x;
-		getRect().y = this.y;
-		getRect().width = this.TankWidth;
-		getRect().height = this.TankHeight;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = this.TankWidth;
+		rect.height = this.TankHeight;
 	}
 	
 	public int getX() {
@@ -109,7 +103,6 @@ public class Tank extends BaseTank{
 	}
 
 	// 画出坦克
-	@Override
 	public void paint(Graphics g) {
 		if(!living){
 			tf.tanks.remove(this);
@@ -190,8 +183,8 @@ public class Tank extends BaseTank{
 		boundCheck();
 		
 		//更新rect 的位置
-		this.getRect().x = this.getX();
-		this.getRect().y = this.getY();
+		this.rect.x = this.getX();
+		this.rect.y = this.getY();
 	}
 
 	private void boundCheck() {
@@ -238,8 +231,7 @@ public class Tank extends BaseTank{
 	public void die() {
 		this.living = false;
 		// 坦克die 之后，随即爆炸
-		//tf.explodes.add(new Explode(this.x, this.y, tf));
-		tf.explodes.add(DefaultFactory.getInstance().createExplode(this.x, this.y, tf));
+		tf.explodes.add(new Explode(this.x, this.y, tf));
 	}
 	// 主战坦克与敌方坦克碰撞
 	/*public void tankCollideWith(Tank myTank) {
@@ -250,13 +242,5 @@ public class Tank extends BaseTank{
 			myTank.die();
 		}
 	}*/
-
-	public Rectangle getRect() {
-		return rect;
-	}
-
-	public void setRect(Rectangle rect) {
-		this.rect = rect;
-	}
 
 }
