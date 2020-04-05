@@ -1,18 +1,15 @@
-package com.szq.tank;
+package com.szq.tank.factory;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.szq.tank.factory.BaseBullet;
-import com.szq.tank.factory.BaseTank;
+import com.szq.tank.Dir;
+import com.szq.tank.Group;
+import com.szq.tank.ResourceMgr;
+import com.szq.tank.TankFrame;
 
-/**
- * @author: shizq
- * @Date: 2020年3月15日下午3:55:06
- * @Des: 炮弹类
- * @Version: 1.0
- */
-public class Bullet extends BaseBullet{
+public class RectBullet extends BaseBullet {
+
 	private static int SPEED = 7;
 	private static int BulletWidth = ResourceMgr.bulletU.getWidth();
 	private static int BulletHeight = ResourceMgr.bulletU.getHeight();
@@ -24,7 +21,7 @@ public class Bullet extends BaseBullet{
 	Rectangle rect = new Rectangle();
 	
 	TankFrame tf = null;
-	public Bullet(int x, int y, Dir dir,Group group, TankFrame tf) {
+	public RectBullet(int x, int y, Dir dir,Group group, TankFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -35,7 +32,7 @@ public class Bullet extends BaseBullet{
 		rect.width = this.BulletWidth;
 		rect.height = this.BulletHeight;
 		//重构代码，当炮弹被new出来的时候，就被加入到 画布中 bullets 的集合中去
-		tf.bullets.add(this);
+		tf.getBullets().add(this);
 	}
 	public boolean getLive() {
 		return living;
@@ -56,7 +53,7 @@ public class Bullet extends BaseBullet{
 	@Override
 	public void paint(Graphics g) {
 		if(!living){
-			tf.bullets.remove(this);
+			tf.getBullets().remove(this);
 		}
 		
 		switch (dir) {
@@ -94,7 +91,7 @@ public class Bullet extends BaseBullet{
 			break;
 		}
 		//添加判断炮弹是否飞出边界，
-		if(x<0 || y<0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT){
+		if(x<0 || y<0 || x>TankFrame.getGameWidth() || y>TankFrame.getGameHeight()){
 			living = false;
 		}
 		//更新rect 的位置
@@ -117,4 +114,5 @@ public class Bullet extends BaseBullet{
 	private void die() {
 		this.living = false;
 	}
+
 }
