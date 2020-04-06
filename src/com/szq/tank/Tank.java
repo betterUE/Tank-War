@@ -8,6 +8,7 @@ import java.util.Random;
 import com.szq.tank.Strategy.DefaultFireStrategy;
 import com.szq.tank.Strategy.FireStrategy;
 import com.szq.tank.Strategy.FourDirFireStrategy;
+import com.szq.tank.facade.GameModel;
 import com.szq.tank.factory.BaseTank;
 import com.szq.tank.factory.DefaultFactory;
 
@@ -28,7 +29,7 @@ public class Tank extends BaseTank{
 	//坦克是否 live
 	private boolean living = true;
 	//Frame
-	public TankFrame tf = null;
+	public GameModel gm = null;
 	//区分主战坦克 与 敌方坦克, 默认是 敌方坦克
 	public Group group = Group.BAD;
 	//随机数
@@ -38,13 +39,13 @@ public class Tank extends BaseTank{
 	//碰撞检测优化
 	private Rectangle rect = new Rectangle();
 
-	public Tank(int x, int y, Dir dir , Group group,TankFrame tf) {
+	public Tank(int x, int y, Dir dir , Group group,GameModel gm) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.tf = tf;
+		this.gm = gm;
 		getRect().x = this.x;
 		getRect().y = this.y;
 		getRect().width = this.TankWidth;
@@ -112,7 +113,7 @@ public class Tank extends BaseTank{
 	@Override
 	public void paint(Graphics g) {
 		if(!living){
-			tf.tanks.remove(this);
+			gm.getTanks().remove(this);
 		}
 		if(count>=0 && count<50){
 			switch (dir) {
@@ -239,7 +240,7 @@ public class Tank extends BaseTank{
 		this.living = false;
 		// 坦克die 之后，随即爆炸
 		//tf.explodes.add(new Explode(this.x, this.y, tf));
-		tf.explodes.add(DefaultFactory.getInstance().createExplode(this.x, this.y, tf));
+		gm.getExplodes().add(DefaultFactory.getInstance().createExplode(this.x, this.y, gm));
 	}
 	// 主战坦克与敌方坦克碰撞
 	/*public void tankCollideWith(Tank myTank) {

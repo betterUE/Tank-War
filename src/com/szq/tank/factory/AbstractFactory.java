@@ -3,6 +3,7 @@ package com.szq.tank.factory;
 import com.szq.tank.Dir;
 import com.szq.tank.Group;
 import com.szq.tank.TankFrame;
+import com.szq.tank.facade.GameModel;
 
 /**
  * @author: shizq
@@ -12,10 +13,10 @@ import com.szq.tank.TankFrame;
  */
 public abstract class AbstractFactory {
 	
-	public abstract BaseTank createTank(int x, int y, Dir dir, Group group,TankFrame tf);
+	public abstract BaseTank createTank(int x, int y, Dir dir, Group group,GameModel tf);
 	
-	public abstract BaseBullet createBullet(int x, int y, Dir dir,Group group, TankFrame tf);
+	public abstract BaseBullet createBullet(int x, int y, Dir dir,Group group, GameModel tf);
 	
-	public abstract BaseExplode createExplode(int x, int y, TankFrame tf);
+	public abstract BaseExplode createExplode(int x, int y, GameModel gm);
 	
 }

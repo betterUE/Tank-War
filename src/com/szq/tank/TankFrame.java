@@ -8,44 +8,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import com.szq.tank.factory.BaseBullet;
-import com.szq.tank.factory.BaseExplode;
-import com.szq.tank.factory.BaseTank;
+import com.szq.tank.facade.GameModel;
 
 public class TankFrame extends Frame {
 	static final int GAME_WIDTH=800,GAME_HEIGHT=700;
-	//创建坦克对象 属性
-	Tank myTank = new Tank(30, 30, Dir.DOWN, Group.GOOD,this);
-	//创建炮弹对象 属性
-	//Bullet myBullet = new Bullet(20, 20, Dir.DOWN);
-	// 打出多个炮弹
-	List<BaseBullet> bullets = new ArrayList<>();
-	//创建敌方多个坦克
-	List<BaseTank> tanks = new ArrayList<>();
-	//爆炸
-	Explode explode = new Explode(300, 300, this);
-	//可能多个位置爆炸
-	List<BaseExplode> explodes = new ArrayList<>();
 	
-	public List<BaseBullet> getBullets() {
-		return bullets;
-	}
-
-	public void setBullets(List<BaseBullet> bullets) {
-		this.bullets = bullets;
-	}
-
-	public List<BaseTank> getTanks() {
-		return tanks;
-	}
-
-	public void setTanks(List<BaseTank> tanks) {
-		this.tanks = tanks;
-	}
+	//引入门面模式
+	GameModel gm = new GameModel();
 
 	public static int getGameWidth() {
 		return GAME_WIDTH;
@@ -53,14 +22,6 @@ public class TankFrame extends Frame {
 
 	public static int getGameHeight() {
 		return GAME_HEIGHT;
-	}
-
-	public List<BaseExplode> getExplodes() {
-		return explodes;
-	}
-
-	public void setExplodes(List<BaseExplode> explodes) {
-		this.explodes = explodes;
 	}
 
 	// 构造方法
@@ -94,58 +55,10 @@ public class TankFrame extends Frame {
 		paint(goffScreen);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
-
-	@Override
+	
 	public void paint(Graphics g) {
-		//输出子弹数目
-		Color c = g.getColor();
-		g.setColor(Color.WHITE);
-		g.drawString("炮弹的数量："+bullets.size(), 30, 50);
-		g.drawString("敌方坦克的数量："+tanks.size(), 140, 50);
-		g.setColor(c);
-		
-		//画出坦克
-		myTank.paint(g);
-		//画出子弹
-		//myBullet.paint(g);
-		//发射一堆子弹，这种方法会出现迭代器中删除异常，避免方法如下：
-		/*for(Bullet b : bullets){   
-			b.paint(g);
-		}*/
-		for(int i=0;i<bullets.size();i++){
-			bullets.get(i).paint(g);
-		}
-		
-		/*第二种方法
-		 * for(Iterator<Bullet> it = bullets.iterator(); it.hasNext();){
-			Bullet b = it.next();
-			if(!b.getLive()){
-				it.remove();
-			}
-		}*/
-		
-		//画坦克
-		for(int j=0; j<tanks.size(); j++){
-			tanks.get(j).paint(g);
-		}
-		//嵌套循环 判断炮弹碰撞 坦克
-		for(int i=0; i<bullets.size(); i++){
-			for(int j=0; j<tanks.size(); j++){
-				bullets.get(i).collideWith(tanks.get(j));
-			}
-		}
-		/*// 主战坦克与敌方坦克碰撞
-		for(int j=0; j<tanks.size(); j++){
-			tanks.get(j).tankCollideWith(myTank);
-		}*/
-		
-		//画出一个爆炸
-		//explode.paint(g);
-		for(int m=0; m<explodes.size(); m++){
-			explodes.get(m).paint(g);
-		}
+		gm.paint(g);
 	}
-
 	//
 	class MyKeyListener extends KeyAdapter {
 
@@ -197,7 +110,7 @@ public class TankFrame extends Frame {
 				break;
 			//按下ctrl键时，发射炮弹
 			case KeyEvent.VK_CONTROL:
-				myTank.fire(myTank.group);
+				gm.getMyTank().fire(gm.getMyTank().group);
 			default:
 				break;
 			}
@@ -208,22 +121,23 @@ public class TankFrame extends Frame {
 		 * 主坦克的移动方向
 		 */
 		public void setMainTankMoveDir() {
+			//Tank myTank = DefaultFactory.getInstance().createTank(x, y, dir, group, tf);
 			// 如果没有按键，则坦克静止
 			if (!bL && !bU && !bR && !bD) {
-				myTank.setMoving(false);
+				gm.getMyTank().setMoving(false);
 			} else {
-				myTank.setMoving(true);
+				gm.getMyTank().setMoving(true);
 				if (bL) {
-					myTank.setDir(Dir.LEFT);
+					gm.getMyTank().setDir(Dir.LEFT);
 				}
 				if (bU) {
-					myTank.setDir(Dir.UP);
+					gm.getMyTank().setDir(Dir.UP);
 				}
 				if (bR) {
-					myTank.setDir(Dir.RIGHT);
+					gm.getMyTank().setDir(Dir.RIGHT);
 				}
 				if (bD) {
-					myTank.setDir(Dir.DOWN);
+					gm.getMyTank().setDir(Dir.DOWN);
 				}
 			}
 

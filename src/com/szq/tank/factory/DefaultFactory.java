@@ -6,6 +6,7 @@ import com.szq.tank.Explode;
 import com.szq.tank.Group;
 import com.szq.tank.Tank;
 import com.szq.tank.TankFrame;
+import com.szq.tank.facade.GameModel;
 
 public class DefaultFactory extends AbstractFactory {
 	
@@ -24,17 +25,17 @@ public class DefaultFactory extends AbstractFactory {
 	}
 
 	@Override
-	public BaseTank createTank(int x, int y, Dir dir, Group group,TankFrame tf) {
-		return new Tank(x, y, dir, group, tf);
+	public BaseTank createTank(int x, int y, Dir dir, Group group,GameModel gm) {
+		return new Tank(x, y, dir, group, gm);
 	}
 
 	@Override
-	public BaseBullet createBullet(int x, int y, Dir dir,Group group, TankFrame tf) {
+	public BaseBullet createBullet(int x, int y, Dir dir,Group group, GameModel tf) {
 		return new Bullet(x, y, dir, group, tf);
 	}
 
 	@Override
-	public BaseExplode createExplode(int x, int y, TankFrame tf) {
+	public BaseExplode createExplode(int x, int y, GameModel tf) {
 		return new Explode(x, y, tf);
 	}
 

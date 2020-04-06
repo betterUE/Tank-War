@@ -28,7 +28,7 @@ public class DefaultFireStrategy implements FireStrategy {
 	@Override
 	public void fire(Tank t) {
 		//new Bullet(t.getX(), t.getY(), t.dir, t.group ,t.tf);	 
-		DefaultFactory.getInstance().createBullet(t.getX(), t.getY(), t.dir, t.group, t.tf);
+		DefaultFactory.getInstance().createBullet(t.getX(), t.getY(), t.dir, t.group, t.gm);
 	}
 
 }

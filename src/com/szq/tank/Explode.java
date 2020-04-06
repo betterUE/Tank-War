@@ -2,6 +2,7 @@ package com.szq.tank;
 
 import java.awt.Graphics;
 
+import com.szq.tank.facade.GameModel;
 import com.szq.tank.factory.BaseExplode;
 
 /**
@@ -15,12 +16,12 @@ public class Explode extends BaseExplode{
 	private static int Height = ResourceMgr.explodes[0].getHeight();
 	private int x, y;
 	private boolean living = true;
-	TankFrame tf = null;
+	GameModel gm = null;
 	private int step = 0;
-	public Explode(int x, int y, TankFrame tf) {
+	public Explode(int x, int y, GameModel gm) {
 		this.x = x;
 		this.y = y;
-		this.tf = tf;
+		this.gm = gm;
 		//爆炸声音
 		//new Audio("audio/explode.wav"
 	}
@@ -37,7 +38,7 @@ public class Explode extends BaseExplode{
 	public void paint(Graphics g) {
 		g.drawImage(ResourceMgr.explodes[step++], x, y, null);
 		if(step >= ResourceMgr.explodes.length){
-			tf.explodes.remove(this);
+			gm.getExplodes().remove(this);
 		}
 	}
 }

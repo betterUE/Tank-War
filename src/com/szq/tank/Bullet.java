@@ -3,6 +3,7 @@ package com.szq.tank;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.szq.tank.facade.GameModel;
 import com.szq.tank.factory.BaseBullet;
 import com.szq.tank.factory.BaseTank;
 
@@ -23,19 +24,19 @@ public class Bullet extends BaseBullet{
 	//碰撞检测优化
 	Rectangle rect = new Rectangle();
 	
-	TankFrame tf = null;
-	public Bullet(int x, int y, Dir dir,Group group, TankFrame tf) {
+	GameModel gm = null;
+	public Bullet(int x, int y, Dir dir,Group group, GameModel gm) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.tf = tf;
+		this.gm = gm;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = this.BulletWidth;
 		rect.height = this.BulletHeight;
 		//重构代码，当炮弹被new出来的时候，就被加入到 画布中 bullets 的集合中去
-		tf.bullets.add(this);
+		gm.getBullets().add(this);
 	}
 	public boolean getLive() {
 		return living;
@@ -56,7 +57,7 @@ public class Bullet extends BaseBullet{
 	@Override
 	public void paint(Graphics g) {
 		if(!living){
-			tf.bullets.remove(this);
+			gm.getBullets().remove(this);
 		}
 		
 		switch (dir) {

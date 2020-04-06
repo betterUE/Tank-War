@@ -10,13 +10,7 @@ public class TankMain {
 	public static void main(String[] args) throws InterruptedException  {
 			
 			TankFrame tankFrame = new TankFrame();
-			
-			int initTankCount = ProperTyMgr.getInt("initTankCount");
-			
-			//初始化敌方坦克，这里以后是要单独拿出来的
-			for(int i=0; i<initTankCount; i++){
-				tankFrame.tanks.add(new Tank(80+i*70 , 300 , Dir.DOWN,Group.BAD,tankFrame));
-			}
+		
 			while(true){
 				Thread.sleep(10);
 				tankFrame.repaint();

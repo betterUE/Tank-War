@@ -7,6 +7,7 @@ import com.szq.tank.Dir;
 import com.szq.tank.Group;
 import com.szq.tank.ResourceMgr;
 import com.szq.tank.TankFrame;
+import com.szq.tank.facade.GameModel;
 
 public class RectBullet extends BaseBullet {
 
@@ -20,19 +21,19 @@ public class RectBullet extends BaseBullet {
 	//碰撞检测优化
 	Rectangle rect = new Rectangle();
 	
-	TankFrame tf = null;
-	public RectBullet(int x, int y, Dir dir,Group group, TankFrame tf) {
+	GameModel gm = null;
+	public RectBullet(int x, int y, Dir dir,Group group, GameModel gm) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.tf = tf;
+		this.gm = gm;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = this.BulletWidth;
 		rect.height = this.BulletHeight;
 		//重构代码，当炮弹被new出来的时候，就被加入到 画布中 bullets 的集合中去
-		tf.getBullets().add(this);
+		gm.getBullets().add(this);
 	}
 	public boolean getLive() {
 		return living;
@@ -53,7 +54,7 @@ public class RectBullet extends BaseBullet {
 	@Override
 	public void paint(Graphics g) {
 		if(!living){
-			tf.getBullets().remove(this);
+			gm.getBullets().remove(this);
 		}
 		
 		switch (dir) {
